@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b46">
+<title>Verificación de certificados | Universidad Núr</title>
+<style>
+:root{--navy:#102b46;--navy2:#173d60;--gold:#c6a45c;--ink:#243447;--muted:#64748b;--line:#e3e9ef;--bg:#f3f6f9;--green:#16794b;--red:#b42318}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg);min-height:100vh}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--gold)}
+.header-inner{max-width:1100px;margin:auto;padding:22px 24px;display:flex;align-items:center;gap:14px}
+.brand-mark{width:46px;height:46px;border:1px solid rgba(255,255,255,.55);border-radius:50%;display:grid;place-items:center;font-family:Georgia,serif;font-size:21px;color:#f1d99f}
+.brand-name{font-weight:750;letter-spacing:.11em;font-size:16px}
+.brand-sub{font-size:11px;letter-spacing:.16em;color:#d5dfeb;margin-top:4px}
+main{max-width:920px;margin:58px auto;padding:0 22px 60px}
+.eyebrow{text-align:center;color:#9b7a3d;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1{text-align:center;color:var(--navy);font-family:Georgia,serif;font-size:clamp(30px,5vw,43px);font-weight:500;margin:12px 0}
+.lead{text-align:center;color:var(--muted);max-width:610px;line-height:1.65;margin:0 auto 34px}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 45px rgba(16,43,70,.08);overflow:hidden}
+.panel-top{padding:25px 30px 20px;border-bottom:1px solid var(--line)}
+.panel-top h2{margin:0;color:var(--navy);font-size:17px}
+.panel-top p{margin:7px 0 0;color:var(--muted);font-size:13px}
+form{padding:25px 30px 28px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:9px}
+.input-row{display:flex;gap:10px}
+input{width:100%;min-width:0;border:1px solid #cbd5df;border-radius:9px;padding:15px 16px;font-size:16px;color:var(--ink);outline:none;letter-spacing:.04em}
+input:focus{border-color:#426d91;box-shadow:0 0 0 3px rgba(66,109,145,.14)}
+button{border:0;border-radius:9px;background:var(--navy);color:white;padding:0 23px;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap}
+button:hover{background:var(--navy2)}
+.hint{font-size:12px;color:var(--muted);margin:10px 0 0}
+.result{display:none;margin:0 30px 28px;border-radius:12px;border:1px solid #b8dfca;background:#f0faf4;padding:20px}
+.result.show{display:block}
+.result.invalid{border-color:#f0c4c0;background:#fff5f4}
+.result-head{display:flex;align-items:center;gap:10px;font-weight:750;color:var(--green);margin-bottom:15px}
+.invalid .result-head{color:var(--red)}
+.status-icon{width:28px;height:28px;border-radius:50%;background:#d8f1e2;display:grid;place-items:center}
+.invalid .status-icon{background:#fee4e2}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px}
+.detail small{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.detail strong{font-size:14px;font-weight:650;line-height:1.4}
+.code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.05em}
+.footer-note{text-align:center;color:#7b8794;font-size:12px;line-height:1.6;margin:22px auto 0;max-width:650px}
+footer{border-top:1px solid var(--line);padding:22px;text-align:center;color:#718096;font-size:12px}
+footer strong{color:var(--navy)}
+@media(max-width:600px){main{margin:38px auto}.header-inner{padding:18px}.panel-top,form{padding-left:20px;padding-right:20px}.input-row{flex-direction:column}button{padding:15px}.result{margin-left:20px;margin-right:20px}.details{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div class="brand-mark" aria-hidden="true">N</div>
+    <div>
+      <div class="brand-name">UNIVERSIDAD NÚR</div>
+      <div class="brand-sub">FORMACIÓN · EXCELENCIA · SERVICIO</div>
+    </div>
+  </div>
+</header>
+<main>
+  <div class="eyebrow">Consulta pública</div>
+  <h1>Verificación de certificados</h1>
+  <p class="lead">Comprueba la autenticidad de un certificado emitido por la Universidad Núr. Introduce el código de verificación que figura en el documento.</p>
+  <section class="panel" aria-labelledby="panel-title">
+    <div class="panel-top">
+      <h2 id="panel-title">Consultar certificado</h2>
+      <p>El código suele encontrarse en la parte inferior del certificado o junto al código QR.</p>
+    </div>
+    <form id="lookup-form">
+      <label for="certificate-code">Código de verificación</label>
+      <div class="input-row">
+        <input id="certificate-code" name="code" autocomplete="off" spellcheck="false" value="NUR-2026-00001" placeholder="Ej. NUR-2026-00001" required>
+        <button type="submit">Verificar certificado</button>
+      </div>
+      <p class="hint">Ejemplo de demostración: NUR-2026-00001</p>
+    </form>
+    <div id="result" class="result" role="status" aria-live="polite">
+      <div class="result-head"><span class="status-icon" id="status-icon">✓</span><span id="status-title">Certificado válido</span></div>
+      <div class="details" id="details">
+        <div class="detail"><small>Titular</small><strong>Nombre Apellido Apellido</strong></div>
+        <div class="detail"><small>Actividad</small><strong>Jornada Académica de Relaciones Internacionales</strong></div>
+        <div class="detail"><small>Institución emisora</small><strong>Universidad Núr</strong></div>
+        <div class="detail"><small>Fecha de realización</small><strong>24 de noviembre de 2026</strong></div>
+        <div class="detail"><small>Tipo de certificado</small><strong>Participación</strong></div>
+        <div class="detail"><small>Código</small><strong class="code">NUR-2026-00001</strong></div>
+      </div>
+    </div>
+  </section>
+  <p class="footer-note">La consulta permite comprobar los datos registrados por la institución emisora. Si encuentras alguna inconsistencia, comunícate con la unidad organizadora de la actividad.</p>
+</main>
+<footer><strong>Universidad Núr</strong> · Sistema de emisión y validación de certificados</footer>
+<script>
+const form=document.getElementById('lookup-form');
+const input=document.getElementById('certificate-code');
+const result=document.getElementById('result');
+const title=document.getElementById('status-title');
+const icon=document.getElementById('status-icon');
+const details=document.getElementById('details');
+form.addEventListener('submit',function(event){
+  event.preventDefault();
+  const code=input.value.trim().toUpperCase();
+  result.classList.add('show');
+  if(code==='NUR-2026-00001'){
+    result.classList.remove('invalid');
+    title.textContent='Certificado válido (registro de demostración)';
+    icon.textContent='✓';
+    details.style.display='grid';
+  }else{
+    result.classList.add('invalid');
+    title.textContent='No se encontró un certificado con ese código';
+    icon.textContent='!';
+    details.style.display='none';
+  }
+});
+</script>
+</body>
+</html>
